@@ -1,4 +1,4 @@
-package com.demo.login.service;
+package com.demo.login.entity;
 
 import javax.persistence.*;
 
