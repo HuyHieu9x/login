@@ -1,6 +1,7 @@
 package com.demo.login.service;
 
 import com.demo.login.entity.Account;
+import com.demo.login.entity.CustomUserDetails;
 import com.demo.login.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +16,10 @@ public class UserService implements UserDetailsService{
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Account account = accountRepository.findByEmail(email);
 
+        if(account == null){
+            throw new UsernameNotFoundException(email);
+        }
 
-        return null;
+        return new CustomUserDetails();
     }
 }
