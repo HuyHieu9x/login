@@ -1,6 +1,7 @@
 package com.demo.login.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Account")
@@ -15,6 +16,10 @@ public class Account {
     private String pass;
     @Column(name = "email")
     private String email;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "acc_id")
+    private List<Name> nameList;
 
     public int getId() {
         return id;
@@ -46,5 +51,13 @@ public class Account {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Name> getNameList() {
+        return nameList;
+    }
+
+    public void setNameList(List<Name> nameList) {
+        this.nameList = nameList;
     }
 }

@@ -1,6 +1,10 @@
 package com.demo.login.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Employee")
@@ -12,15 +16,18 @@ public class Employee {
     private String name;
     @Column(name = "position")
     private String position;
-    @Column(name = "department_id",insertable = false,updatable = false)
-    private int departmentId;
+    @Column(name = "department_id")
+    private int department_id;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Emp_Add",
+            joinColumns = @JoinColumn(name = "id_employee"),
+            inverseJoinColumns = @JoinColumn(name = "id_address"))
+    private Set<Address> addressSet;
 
     public Employee() {
     }
-
-    @ManyToOne
-    @JoinColumn(name = "department_id",referencedColumnName = "id")
-    private Department department;
 
     public int getId() {
         return id;
@@ -46,19 +53,24 @@ public class Employee {
         this.position = position;
     }
 
-    public int getDepartmentId() {
-        return departmentId;
+    public Employee(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
+    public int getDepartment_id() {
+        return department_id;
     }
 
-    public Department getDepartment() {
-        return department;
+    public void setDepartment_id(int department_id) {
+        this.department_id = department_id;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public Set<Address> getAddressSet() {
+        return addressSet;
+    }
+
+    public void setAddressSet(Set<Address> addressSet) {
+        this.addressSet = addressSet;
     }
 }

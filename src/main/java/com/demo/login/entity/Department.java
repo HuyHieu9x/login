@@ -1,7 +1,10 @@
 package com.demo.login.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "Department")
@@ -11,16 +14,9 @@ public class Department {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-    private Set<Employee> employeeSet;
-
-    public Set<Employee> getEmployeeSet() {
-        return employeeSet;
-    }
-
-    public void setEmployeeSet(Set<Employee> employeeSet) {
-        this.employeeSet = employeeSet;
-    }
+    @OneToMany
+    @JoinColumn(name = "department_id")
+    private List<Employee> employeeList;
 
     public Department() {
     }
@@ -41,4 +37,11 @@ public class Department {
         this.name = name;
     }
 
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
 }
